@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Football-Tournament-frontend/static/css/main.e9864a5e.css",
+    "main.js": "/Football-Tournament-frontend/static/js/main.2bb02d58.js",
+    "index.html": "/Football-Tournament-frontend/index.html",
+    "main.e9864a5e.css.map": "/Football-Tournament-frontend/static/css/main.e9864a5e.css.map",
+    "main.2bb02d58.js.map": "/Football-Tournament-frontend/static/js/main.2bb02d58.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e9864a5e.css",
+    "static/js/main.2bb02d58.js"
+  ]
+}
