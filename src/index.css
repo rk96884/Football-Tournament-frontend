@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fade + slide down */
+@keyframes fadeSlideDown {
+  0% { opacity: 0; transform: translateY(-6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.fade-slide-down {
+  animation: fadeSlideDown 0.25s ease-out;
+}
+
+/* Fade + slide up */
+@keyframes fadeSlideUp {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.fade-slide-up {
+  animation: fadeSlideUp 0.25s ease-out;
+}
+
+/* Scale in */
+@keyframes scaleIn {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.scale-in {
+  animation: scaleIn 0.2s ease-out;
+}
+.google-maps-button {
+  display: inline-block;
+  background: #4285F4;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.google-maps-button:hover {
+  background: #3367D6;
+}
