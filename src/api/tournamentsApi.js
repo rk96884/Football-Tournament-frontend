@@ -1,4 +1,7 @@
-const API_BASE = "/api/tournaments";
+const API_BASE =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:5000/api/tournaments"
+    : "https://football-tournament-backend.onrender.com/api/tournaments";
 
 export async function fetchTournaments() {
   const res = await fetch(API_BASE);
