@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { API_BASE } from "../TournamentsApi";
+import { API_BASE } from "../api/TournamentsApi";
 
 export default function TournamentList() {
   const [tournaments, setTournaments] = useState([]);
