@@ -8,7 +8,7 @@ import AddTournament from "./pages/AddTournament";
 import EditTournament from "./pages/EditTournament";
 import TournamentPage from "./pages/TournamentPage";
 import AddPlayerPage from "./pages/AddPlayerPage";
-import logo from "../images/logo.png";
+import logo from "./images/logo.png";
 
 function App() {
   return (
