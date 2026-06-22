@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { API_BASE } from "../TournamentsApi";
 
 export default function EditTournament() {
   const { id } = useParams();
@@ -9,7 +10,7 @@ export default function EditTournament() {
 
   useEffect(() => {
     const load = async () => {
-      const res = await fetch(`http://localhost:5201/api/tournaments/${id}`);
+      const res = await fetch(`${API_BASE}/api/tournaments/${id}`);
       const data = await res.json();
 
       setForm({
@@ -47,7 +48,7 @@ export default function EditTournament() {
 
     };
     console.log("Submitting Notes:", form.notes);
-    await fetch(`http://localhost:5201/api/tournaments/${id}`, {
+    await fetch(`${API_BASE}/api/tournaments/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)

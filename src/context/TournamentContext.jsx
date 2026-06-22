@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { API_BASE } from "../TournamentsApi";
 
 const TournamentContext = createContext();
 
@@ -7,14 +8,14 @@ export function TournamentProvider({ children }) {
 
   // ⭐ Extract fetch logic into a function
   const fetchTournaments = async () => {
-    try {
-      const res = await fetch("http://localhost:5201/api/tournaments");
-      const data = await res.json();
-      setTournaments(data);
-    } catch (err) {
-      console.error("Failed to load tournaments:", err);
-    }
-  };
+  try {
+    const res = await fetch("${API_BASE}/api/tournaments");
+    const data = await res.json();
+    setTournaments(data);
+  } catch (err) {
+    console.error("Failed to load tournaments:", err);
+  }
+};
 
   // Load tournaments on mount
   useEffect(() => {

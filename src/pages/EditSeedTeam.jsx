@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE } from "../TournamentsApi";
 
 export default function EditSeedTeam() {
   const [players, setPlayers] = useState([]);
@@ -6,7 +7,7 @@ export default function EditSeedTeam() {
   // Load seed players on mount
   useEffect(() => {
     const load = async () => {
-      const res = await fetch("http://localhost:5201/api/seed/seed");
+      const res = await fetch("${API_BASE}/api/seed/seed");
       const data = await res.json();
       setPlayers(data);
     };
@@ -24,7 +25,7 @@ export default function EditSeedTeam() {
 
   // Save all changes
   const save = async () => {
-    await fetch("http://localhost:5201/api/seed/seed", {
+    await fetch("${API_BASE}/api/seed/seed", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(players)

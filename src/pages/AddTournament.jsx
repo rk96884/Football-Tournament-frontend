@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTournaments } from "../context/TournamentContext";
+import { API_BASE } from "../TournamentsApi";
 
 export default function NewTournamentPage() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function NewTournamentPage() {
       }
     };
 
-    await fetch("http://localhost:5201/api/tournaments", {
+    await fetch("${API_BASE}/api/tournaments", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)

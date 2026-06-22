@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { API_BASE } from "../TournamentsApi";
 
 export default function TournamentPage() {
   const { id } = useParams();
@@ -7,11 +8,9 @@ export default function TournamentPage() {
   const [tournament, setTournament] = useState(null);
   const [savingPlayerId, setSavingPlayerId] = useState(null);
 
-  const baseUrl = "http://192.168.0.18:5201";
-
   const loadTournament = async () => {
     try {
-      const res = await fetch(`${baseUrl}/api/tournaments/${id}`);
+      const res = await fetch(`${API_BASE}/api/tournaments/${id}`);
       const data = await res.json();
       setTournament(data);
     } catch (err) {
@@ -43,7 +42,7 @@ export default function TournamentPage() {
     };
 
     try {
-      await fetch(`${baseUrl}/api/players/${player.Id}`, {
+      await fetch(`${API_BASE}/api/players/${player.Id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -99,7 +98,7 @@ export default function TournamentPage() {
   const handleDelete = async () => {
     if (!window.confirm("Delete this tournament?")) return;
 
-    await fetch(`${baseUrl}/api/tournaments/${id}`, {
+    await fetch(`${API_BASE}/api/tournaments/${id}`, {
       method: "DELETE",
     });
 

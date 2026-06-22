@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { TournamentProvider } from "./context/TournamentContext";
 import Dashboard from "./pages/Dashboard";
 import EditSeedTeam from "./pages/EditSeedTeam";
@@ -11,7 +11,7 @@ import AddPlayerPage from "./pages/AddPlayerPage";
 function App() {
   return (
     <TournamentProvider>
-      <BrowserRouter>
+      <HashRouter >
         <div className="min-h-screen bg-gray-100">
           <header className="bg-blue-600 text-white p-4 shadow">
             <h1 className="text-xl font-semibold">Cademy Tournament Manager</h1>
@@ -29,7 +29,7 @@ function App() {
             </Routes>
           </main>
         </div>
-      </BrowserRouter>
+      </HashRouter >
     </TournamentProvider>
   );
 }

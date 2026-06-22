@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { API_BASE } from "../TournamentsApi";
+
 
 export default function AddPlayer() {
   const { id } = useParams();
@@ -8,11 +10,9 @@ export default function AddPlayer() {
   const [tournament, setTournament] = useState(null);
   const [name, setName] = useState("");
 
-  const baseUrl = "http://192.168.0.18:5201";
-
   const loadTournament = async () => {
     try {
-      const res = await fetch(`${baseUrl}/api/tournaments/${id}`);
+      const res = await fetch(`${API_BASE}/api/tournaments/${id}`);
       const data = await res.json();
       setTournament(data);
     } catch (err) {
@@ -37,7 +37,7 @@ export default function AddPlayer() {
       Notes: ""
     };
 
-    await fetch(`${baseUrl}/api/players/${id}`, {
+    await fetch(`${API_BASE}/api/players/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newPlayer),

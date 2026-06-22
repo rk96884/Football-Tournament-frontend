@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API_BASE } from "../TournamentsApi";
 
 export default function TournamentList() {
   const [tournaments, setTournaments] = useState([]);
 
-  const baseUrl = "http://192.168.0.18:5201";
-
   const loadTournaments = async () => {
     try {
-      const res = await fetch(`${baseUrl}/api/tournaments`);
+      const res = await fetch(`${API_BASE}/api/tournaments`);
       const data = await res.json();
       setTournaments(data);
     } catch (err) {
