@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { API_BASE } from "../api/TournamentsApi";
+import { API_BASE } from "../api";
 
 const TournamentContext = createContext();
 
@@ -9,7 +9,7 @@ export function TournamentProvider({ children }) {
   // ⭐ Extract fetch logic into a function
   const fetchTournaments = async () => {
   try {
-    const res = await fetch("${API_BASE}/api/tournaments");
+    const res = await fetch(`${API_BASE}/api/tournaments`);
     const data = await res.json();
     setTournaments(data);
   } catch (err) {

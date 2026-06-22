@@ -34,7 +34,7 @@ export default function NewTournamentPage() {
       }
     };
 
-    await fetch("${API_BASE}/api/tournaments", {
+    await fetch(`${API_BASE}/api/tournaments`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
