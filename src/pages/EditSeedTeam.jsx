@@ -4,11 +4,14 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 export default function EditSeedTeam() {
   const [players, setPlayers] = useState([]);
+
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Page to return to after saving
   const from = location.state?.from || "/tournaments";
 
-  // Load seed players on mount
+  // Load seed players
   useEffect(() => {
     const load = async () => {
       const res = await fetch(`${API_BASE}/api/seed/seed`);
@@ -18,16 +21,14 @@ export default function EditSeedTeam() {
     load();
   }, []);
 
-  // Update a single field on a player
+  // Update a field
   const updateField = (id, field, value) => {
     setPlayers(prev =>
-      prev.map(p =>
-        p.Id === id ? { ...p, [field]: value } : p
-      )
+      prev.map(p => (p.Id === id ? { ...p, [field]: value } : p))
     );
   };
 
- // Save all changes
+  // Save and redirect back
   const save = async () => {
     await fetch(`${API_BASE}/api/seed/seed`, {
       method: "PUT",
@@ -38,26 +39,23 @@ export default function EditSeedTeam() {
     navigate(from);
   };
 
-  // Add a new blank seed player
- const addPlayer = () => {
-  setPlayers(prev => {
-    const nextId = prev.length ? Math.max(...prev.map(p => p.Id)) + 1 : 1;
+  // Add new player
+  const addPlayer = () => {
+    setPlayers(prev => {
+      const nextId = prev.length ? Math.max(...prev.map(p => p.Id)) + 1 : 1;
 
-    const newPlayer = {
-      Id: nextId,
-      Name: "New Player",
-      AmountOwed: 0,
-      AmountPaid: 0,
-      Paid: false,
-      Notes: ""
-    };
+      return [
+        {
+          Id: nextId,
+          Name: "New Player",
+          Notes: ""
+        },
+        ...prev
+      ];
+    });
+  };
 
-    return [newPlayer, ...prev]; // ⬅️ Put new player at the top
-  });
-};
-
-
-  // Delete a player
+  // Delete player
   const deletePlayer = (id) => {
     setPlayers(prev => prev.filter(p => p.Id !== id));
   };
@@ -66,7 +64,6 @@ export default function EditSeedTeam() {
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Edit Seed Team</h2>
 
-      {/* Add Player Button */}
       <button
         type="button"
         onClick={addPlayer}
@@ -75,7 +72,6 @@ export default function EditSeedTeam() {
         + Add Seed Player
       </button>
 
-      {/* Player List */}
       <div className="space-y-4">
         {players.map(p => (
           <div key={p.Id} className="p-4 border rounded-lg bg-white">
@@ -97,47 +93,9 @@ export default function EditSeedTeam() {
               </button>
             </div>
 
-            {/* Amounts + Paid */}
-            <div className="flex gap-4">
-              <input
-                type="number"
-                className="p-2 border rounded"
-                value={p.AmountOwed}
-                onChange={e =>
-                  updateField(
-                    p.Id,
-                    "AmountOwed",
-                    e.target.value === "" ? 0 : parseFloat(e.target.value)
-                  )
-                }
-              />
-
-              <input
-                type="number"
-                className="p-2 border rounded"
-                value={p.AmountPaid}
-                onChange={e =>
-                  updateField(
-                    p.Id,
-                    "AmountPaid",
-                    e.target.value === "" ? 0 : parseFloat(e.target.value)
-                  )
-                }
-              />
-
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={p.Paid}
-                  onChange={e => updateField(p.Id, "Paid", e.target.checked)}
-                />
-                Paid
-              </label>
-            </div>
-
             {/* Notes */}
             <textarea
-              className="w-full p-2 border rounded mt-2"
+              className="w-full p-2 border rounded"
               rows={2}
               value={p.Notes || ""}
               onChange={e => updateField(p.Id, "Notes", e.target.value)}
@@ -146,7 +104,6 @@ export default function EditSeedTeam() {
         ))}
       </div>
 
-      {/* Save Button */}
       <button
         type="button"
         onClick={save}
