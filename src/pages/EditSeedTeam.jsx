@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { API_BASE } from "../api/index";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function EditSeedTeam() {
   const [players, setPlayers] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/tournaments";
 
   // Load seed players on mount
   useEffect(() => {
@@ -23,14 +27,15 @@ export default function EditSeedTeam() {
     );
   };
 
-  // Save all changes
+ // Save all changes
   const save = async () => {
     await fetch(`${API_BASE}/api/seed/seed`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(players)
     });
-    alert("Seed team updated");
+
+    navigate(from);
   };
 
   // Add a new blank seed player
