@@ -23,9 +23,11 @@ export default function NewTournamentPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const isoDate = new Date(`${form.date}:00`).toISOString();
+
     const body = {
       name: form.name,
-      date: new Date(form.date).toISOString(), 
+      date: isoDate,
       costPerPlayer: parseFloat(form.costPerPlayer),
       notes: form.notes,
       location: {
@@ -34,7 +36,7 @@ export default function NewTournamentPage() {
         mapUrl: ""
       }
     };
-console.log("BODY SENT TO BACKEND:", body);
+
 
     await fetch(`${API_BASE}/api/tournaments`, {
       method: "POST",

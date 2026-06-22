@@ -13,18 +13,26 @@ export default function EditTournament() {
       const res = await fetch(`${API_BASE}/api/tournaments/${id}`);
       const data = await res.json();
 
+      function toLocalInputValue(dateString) {
+        const d = new Date(dateString);
+        const pad = (n) => n.toString().padStart(2, "0");
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      }
       setForm({
         name: data.Name,
-        date: data.Date,
+        date: toLocalInputValue(data.Date),
         address: data.Location?.Address || "",
         parking: data.Location?.Parking || "",
+        mapUrl: data.Location?.MapUrl || "",
         costPerPlayer: data.CostPerPlayer,
         notes: data.Notes ?? ""
       });
+
     };
 
     load();
   }, [id]);
+
 
   if (!form) return <div className="p-6">Loading...</div>;
 
@@ -36,18 +44,17 @@ export default function EditTournament() {
     e.preventDefault();
 
     const body = {
-      id: parseInt(id),
       name: form.name,
-      date: form.date,
+      date: new Date(`${form.date}:00`).toISOString(),
       costPerPlayer: parseFloat(form.costPerPlayer),
-      notes: form.notes,   // ⭐ FIXED (was Notes)
-      location: {          // ⭐ FIXED (was Location)
-        address: form.address,   // ⭐ FIXED (was Address)
-        parking: form.parking    // ⭐ FIXED (was Parking)
+      notes: form.notes,
+      location: {
+        address: form.address,
+        parking: form.parking,
+        mapUrl: form.mapUrl || ""
       }
-
     };
-    console.log("Submitting Notes:", form.notes);
+
     await fetch(`${API_BASE}/api/tournaments/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
