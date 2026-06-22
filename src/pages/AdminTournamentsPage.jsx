@@ -1,6 +1,7 @@
 import TournamentList from "../components/TournamentList";
 import { useTournaments } from "../context/TournamentContext";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function TournamentsPage() {
   const { tournaments } = useTournaments();
