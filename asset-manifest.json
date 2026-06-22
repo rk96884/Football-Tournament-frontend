@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Football-Tournament-frontend/static/css/main.e9864a5e.css",
-    "main.js": "/Football-Tournament-frontend/static/js/main.28300259.js",
+    "main.js": "/Football-Tournament-frontend/static/js/main.7c11b50f.js",
     "index.html": "/Football-Tournament-frontend/index.html",
     "main.e9864a5e.css.map": "/Football-Tournament-frontend/static/css/main.e9864a5e.css.map",
-    "main.28300259.js.map": "/Football-Tournament-frontend/static/js/main.28300259.js.map"
+    "main.7c11b50f.js.map": "/Football-Tournament-frontend/static/js/main.7c11b50f.js.map"
   },
   "entrypoints": [
     "static/css/main.e9864a5e.css",
-    "static/js/main.28300259.js"
+    "static/js/main.7c11b50f.js"
   ]
 }
