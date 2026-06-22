@@ -25,7 +25,7 @@ export default function NewTournamentPage() {
 
     const body = {
       name: form.name,
-      date: form.date,
+      date: new Date(form.date).toISOString(), 
       costPerPlayer: parseFloat(form.costPerPlayer),
       notes: form.notes,
       location: {
