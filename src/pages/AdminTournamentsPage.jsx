@@ -10,8 +10,6 @@ export default function TournamentsPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">Upcoming Tournaments</h2>
-
         <div className="flex gap-2">
           <Link
             to="/tournaments/editseedteam" state={{ from: location.pathname }}
