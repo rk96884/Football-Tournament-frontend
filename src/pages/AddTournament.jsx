@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTournaments } from "../context/TournamentContext";
-import { API_BASE } from "../api/TournamentsApi";
+import { API_BASE } from "../api";
 
 export default function NewTournamentPage() {
   const navigate = useNavigate();

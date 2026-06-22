@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { API_BASE } from "../api/TournamentsApi";
+import { API_BASE } from "../api";
 
 
 export default function AddPlayer() {
