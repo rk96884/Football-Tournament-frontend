@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { API_BASE } from "../TournamentsApi";
+import { API_BASE } from "../api/TournamentsApi";
 
 const TournamentContext = createContext();
 
