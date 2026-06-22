@@ -24,15 +24,17 @@ export default function NewTournamentPage() {
     e.preventDefault();
 
     const body = {
-      Name: form.name,
-      Date: form.date,
-      CostPerPlayer: parseFloat(form.costPerPlayer),
-      Notes: form.notes,
-      Location: {
-        Address: form.address,
-        Parking: form.parking
+      name: form.name,
+      date: form.date,
+      costPerPlayer: parseFloat(form.costPerPlayer),
+      notes: form.notes,
+      location: {
+        address: form.address,
+        parking: form.parking,
+        mapUrl: ""
       }
     };
+
 
     await fetch(`${API_BASE}/api/tournaments`, {
       method: "POST",
