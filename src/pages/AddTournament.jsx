@@ -34,7 +34,7 @@ export default function NewTournamentPage() {
         mapUrl: ""
       }
     };
-
+console.log("BODY SENT TO BACKEND:", body);
 
     await fetch(`${API_BASE}/api/tournaments`, {
       method: "POST",
