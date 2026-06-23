@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_BASE } from "../api";
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import {
+  ArrowLeftIcon,
+  MapPinIcon,
+  CarIcon,
+  PencilSquareIcon,
+  TrashIcon,
+  UserPlusIcon,
+} from "@heroicons/react/24/solid";
+
 
 
 export default function TournamentPage() {
@@ -147,38 +155,51 @@ export default function TournamentPage() {
         </button>
       </div>
 
-      {/* Address Block */}
+      {/* Tournament Details Block */}
       {tournament.Location && (
-        <div className="bg-white p-4 rounded-xl border border-gray-200 space-y-1">
-          <div className="text-gray-800 font-medium">
-            📍 {tournament.Location.Address}
+        <div className="bg-white p-4 rounded-xl border border-gray-200 space-y-4">
+
+          {/* Address */}
+          <div className="flex items-start gap-3">
+            <MapPinIcon className="h-6 w-6 text-blue-600 flex-shrink-0" />
+            <div>
+              <p className="text-gray-800 font-medium">
+                {tournament.Location.Address}
+              </p>
+
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  tournament.Location.Address
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 text-sm hover:underline flex items-center gap-1 mt-1"
+              >
+                <MapIcon className="h-4 w-4" />
+                Open in Maps
+              </a>
+            </div>
           </div>
 
-          {tournament.Location.Address && (
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                tournament.Location.Address
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 text-sm"
-            >
-              Open in Maps
-            </a>
-          )}
-
+          {/* Parking */}
           {tournament.Location.Parking && (
-            <div className="text-sm text-gray-500">
-              🚗 Parking: {tournament.Location.Parking}
-            </div>
-          )}
-          {tournament.Notes && (
-            <div className="bg-gray-50 p-3 rounded border">
-              <h3 className="font-semibold text-gray-700 mb-1">Notes</h3>
-              <p className="text-gray-800 whitespace-pre-line">{tournament.Notes}</p>
+            <div className="flex items-start gap-3">
+              <CarIcon className="h-6 w-6 text-blue-600 flex-shrink-0" />
+              <p className="text-gray-700 text-sm">
+                Parking: {tournament.Location.Parking}
+              </p>
             </div>
           )}
 
+          {/* Notes */}
+          {tournament.Notes && (
+            <div className="flex items-start gap-3">
+              <PencilSquareIcon className="h-6 w-6 text-blue-600 flex-shrink-0" />
+              <p className="text-gray-800 whitespace-pre-line">
+                {tournament.Notes}
+              </p>
+            </div>
+          )}
         </div>
       )}
 
@@ -282,8 +303,8 @@ export default function TournamentPage() {
                 >
                   <span
                     className={`absolute top-0.5 h-5 w-5 bg-white rounded-full shadow transition-all duration-300 ease-out ${player.Paid
-                        ? "right-0.5 scale-100"
-                        : "left-0.5 scale-95"
+                      ? "right-0.5 scale-100"
+                      : "left-0.5 scale-95"
                       }`}
                   ></span>
                 </button>
