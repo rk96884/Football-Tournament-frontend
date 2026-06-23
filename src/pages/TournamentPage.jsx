@@ -4,7 +4,7 @@ import { API_BASE } from "../api";
 import {
   ArrowLeftIcon,
   MapPinIcon,
-  CarIcon,
+  TruckIcon,
   PencilSquareIcon,
   TrashIcon,
   UserPlusIcon,
@@ -184,7 +184,7 @@ export default function TournamentPage() {
           {/* Parking */}
           {tournament.Location.Parking && (
             <div className="flex items-start gap-3">
-              <CarIcon className="h-6 w-6 text-blue-600 flex-shrink-0" />
+              <TruckIcon className="h-6 w-6 text-blue-600 flex-shrink-0" />
               <p className="text-gray-700 text-sm">
                 Parking: {tournament.Location.Parking}
               </p>
