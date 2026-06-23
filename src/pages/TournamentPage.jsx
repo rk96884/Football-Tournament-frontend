@@ -4,6 +4,7 @@ import { API_BASE } from "../api";
 import {
   ArrowLeftIcon,
   MapPinIcon,
+  MapIcon,
   TruckIcon,
   PencilSquareIcon,
   TrashIcon,
