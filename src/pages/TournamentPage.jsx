@@ -185,12 +185,13 @@ export default function TournamentPage() {
           {/* Parking */}
           {tournament.Location.Parking && (
             <div className="flex items-start gap-3">
-              <TruckIcon className="h-6 w-6 text-blue-600 flex-shrink-0" />
+              <span className="text-blue-600 text-lg leading-none">🚗</span>
               <p className="text-gray-700 text-sm">
                 Parking: {tournament.Location.Parking}
               </p>
             </div>
           )}
+
 
           {/* Notes */}
           {tournament.Notes && (
@@ -205,20 +206,25 @@ export default function TournamentPage() {
       )}
 
       {/* Attendance Summary */}
-      <div className="bg-white p-4 rounded-xl border border-gray-200 flex gap-6 text-sm">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-green-500"></span>
-          <span className="text-gray-700">{attending} attending</span>
+      <div className="bg-white p-4 rounded-xl border border-gray-200 flex items-center gap-6 text-sm font-medium">
+
+        <div className="flex items-center gap-2 text-green-700">
+          <span className="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+          {attending} attending
         </div>
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-          <span className="text-gray-700">{unanswered} unanswered</span>
+
+        <div className="flex items-center gap-2 text-amber-700">
+          <span className="inline-block w-2 h-2 rounded-full bg-amber-500"></span>
+          {unanswered} unanswered
         </div>
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-red-500"></span>
-          <span className="text-gray-700">{declined} declined</span>
+
+        <div className="flex items-center gap-2 text-red-700">
+          <span className="inline-block w-2 h-2 rounded-full bg-red-500"></span>
+          {declined} declined
         </div>
+
       </div>
+
 
       {/* Actions */}
       <div className="flex gap-3">
