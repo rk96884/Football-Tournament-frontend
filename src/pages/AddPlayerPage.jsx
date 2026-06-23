@@ -10,19 +10,20 @@ export default function AddPlayer() {
   const [tournament, setTournament] = useState(null);
   const [name, setName] = useState("");
 
-  const loadTournament = async () => {
+  const loadTournament = useCallback(async () => {
     try {
-      const res = await fetch(`${API_BASE}/api/tournaments/${id}`);
+      const res = await fetch(`${baseUrl}/api/tournaments/${id}`);
       const data = await res.json();
       setTournament(data);
     } catch (err) {
       console.error("Error loading tournament:", err);
     }
-  };
+  }, [id, baseUrl]);
+
 
   useEffect(() => {
     loadTournament();
-  }, [id]);
+  }, [loadTournament]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

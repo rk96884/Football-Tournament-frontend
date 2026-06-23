@@ -5,21 +5,16 @@ import {
   ArrowLeftIcon,
   MapPinIcon,
   MapIcon,
-  TruckIcon,
   PencilSquareIcon,
-  TrashIcon,
-  UserPlusIcon,
 } from "@heroicons/react/24/solid";
-
-
 
 export default function TournamentPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [tournament, setTournament] = useState(null);
-  const [savingPlayerId, setSavingPlayerId] = useState(null);
+  const setSavingPlayerId = useState(null)[1];
 
-  const loadTournament = async () => {
+  const loadTournament = useCallback(async () => {
     try {
       const res = await fetch(`${API_BASE}/api/tournaments/${id}`);
       const data = await res.json();
@@ -27,11 +22,11 @@ export default function TournamentPage() {
     } catch (err) {
       console.error("Error loading tournament:", err);
     }
-  };
+  }, [API_BASE, id]);
 
   useEffect(() => {
     loadTournament();
-  }, [id]);
+  }, [loadTournament]);
 
   if (!tournament) {
     return <div className="p-4">Loading tournament...</div>;
