@@ -22,7 +22,7 @@ export default function TournamentPage() {
     } catch (err) {
       console.error("Error loading tournament:", err);
     }
-  }, [API_BASE, id]);
+  }, [id]);
 
   useEffect(() => {
     loadTournament();
