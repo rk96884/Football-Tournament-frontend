@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_BASE } from "../api";
 
@@ -12,7 +12,7 @@ export default function AddPlayer() {
 
   const loadTournament = useCallback(async () => {
     try {
-      const res = await fetch(`${baseUrl}/api/tournaments/${id}`);
+      const res = await fetch(`${API_BASE}/api/tournaments/${id}`);
       const data = await res.json();
       setTournament(data);
     } catch (err) {
