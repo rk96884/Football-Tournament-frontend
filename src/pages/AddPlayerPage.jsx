@@ -18,7 +18,7 @@ export default function AddPlayer() {
     } catch (err) {
       console.error("Error loading tournament:", err);
     }
-  }, [id, baseUrl]);
+  }, [id, API_BASE]);
 
 
   useEffect(() => {
