@@ -265,8 +265,8 @@ export default function TournamentPage() {
                 </div>
               </div>
 
-              {/* Label + iOS-style toggle */}
               <div className="flex items-center gap-3">
+                {/* Label */}
                 <span
                   className={`text-sm font-medium ${player.Paid ? "text-green-700" : "text-gray-500"
                     }`}
@@ -274,18 +274,21 @@ export default function TournamentPage() {
                   {player.Paid ? "Paid" : "Unpaid"}
                 </span>
 
+                {/* Toggle */}
                 <button
                   onClick={() => handlePaidToggle(player)}
-                  className={`relative w-12 h-6 rounded-full transition-colors ${player.Paid ? "bg-green-500" : "bg-gray-300"
+                  className={`relative w-12 h-6 rounded-full transition-colors flex-shrink-0 ${player.Paid ? "bg-green-500" : "bg-gray-300"
                     }`}
                 >
                   <span
-                    className={`absolute top-0.5 h-5 w-5 bg-white rounded-full shadow transition-all ${player.Paid ? "right-0.5" : "left-0.5"
+                    className={`absolute top-0.5 h-5 w-5 bg-white rounded-full shadow transition-all duration-300 ease-out ${player.Paid
+                        ? "right-0.5 scale-100"
+                        : "left-0.5 scale-95"
                       }`}
                   ></span>
-
                 </button>
               </div>
+
             </div>
 
             {/* Attendance Pills */}
