@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_BASE } from "../api";
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+
 
 export default function TournamentPage() {
   const { id } = useParams();
@@ -129,16 +131,21 @@ export default function TournamentPage() {
   return (
     <div className="p-6 space-y-6 bg-[#F2F2F7] min-h-screen">
 
-      {/* Back Button */}
-      <button
-        onClick={() => navigate(-1)}
-        className="text-gray-600 hover:text-gray-800 text-sm"
-      >
-        ← Back
-      </button>
+      <div className="flex items-center justify-between mb-4">
+        {/* Title on the left */}
+        <h2 className="text-3xl font-semibold text-gray-900">
+          {tournament.Name}
+        </h2>
 
-      {/* Title */}
-      <h2 className="text-3xl font-semibold text-gray-900">{tournament.Name}</h2>
+        {/* Back button on the right */}
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-1 text-gray-600 hover:text-gray-800 text-sm"
+        >
+          <ArrowLeftIcon className="h-4 w-4" />
+          Back
+        </button>
+      </div>
 
       {/* Address Block */}
       {tournament.Location && (
@@ -261,7 +268,7 @@ export default function TournamentPage() {
               {/* Label + iOS-style toggle */}
               <div className="flex items-center gap-3">
                 <span
-                  className={`text-sm font-medium ${player.Paid ? "text-green-700" : "text-gray-500"
+                  className={`absolute top-0.5 h-5 w-5 bg-white rounded-full shadow transition-all ${player.Paid ? "right-0.5" : "left-0.5"
                     }`}
                 >
                   {player.Paid ? "Paid" : "Unpaid"}
@@ -291,8 +298,8 @@ export default function TournamentPage() {
                   key={opt.key}
                   onClick={() => handleAttendanceChange(player, opt.key)}
                   className={`flex-1 px-3 py-2 rounded-full text-sm border transition ${player.Attending === opt.key
-                      ? attendanceStyles[opt.key]
-                      : "bg-gray-100 border-gray-200 text-gray-600"
+                    ? attendanceStyles[opt.key]
+                    : "bg-gray-100 border-gray-200 text-gray-600"
                     }`}
                 >
                   {opt.label}
