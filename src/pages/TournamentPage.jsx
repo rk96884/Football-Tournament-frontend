@@ -268,7 +268,7 @@ export default function TournamentPage() {
               {/* Label + iOS-style toggle */}
               <div className="flex items-center gap-3">
                 <span
-                  className={`absolute top-0.5 h-5 w-5 bg-white rounded-full shadow transition-all ${player.Paid ? "right-0.5" : "left-0.5"
+                  className={`text-sm font-medium ${player.Paid ? "text-green-700" : "text-gray-500"
                     }`}
                 >
                   {player.Paid ? "Paid" : "Unpaid"}
@@ -280,9 +280,10 @@ export default function TournamentPage() {
                     }`}
                 >
                   <span
-                    className={`absolute top-0.5 h-5 w-5 bg-white rounded-full shadow transform transition-transform ${player.Paid ? "translate-x-6" : "translate-x-0"
+                    className={`absolute top-0.5 h-5 w-5 bg-white rounded-full shadow transition-all ${player.Paid ? "right-0.5" : "left-0.5"
                       }`}
                   ></span>
+
                 </button>
               </div>
             </div>
