@@ -47,7 +47,7 @@ export default function EditSeedTeam() {
       return [
         {
           Id: nextId,
-          Name: "New Player",
+          Name: "",
           Notes: "",
           TournamentId: Number(tournamentId)   // ⭐ REQUIRED
         },
@@ -80,6 +80,7 @@ export default function EditSeedTeam() {
             <div className="flex justify-between items-center mb-2">
               <input
                 className="w-full p-2 border rounded"
+                placeholder="New Player Name"
                 value={p.Name}
                 onChange={e => updateField(p.Id, "Name", e.target.value)}
               />

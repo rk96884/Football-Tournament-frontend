@@ -29,7 +29,7 @@ function App() {
           <main className="max-w-3xl mx-auto p-4">
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/tournaments/editseedteam" element={<EditSeedTeam />} />
+              <Route path="/tournaments/:id/editseedteam" element={<EditSeedTeam />} />
               <Route path="/tournaments" element={<AdminTournamentsPage />} />
               <Route path="/tournaments/add" element={<AddTournament />} />
               <Route path="/tournaments/:id/edit" element={<EditTournament />} />
