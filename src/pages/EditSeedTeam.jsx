@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
 import { API_BASE } from "../api/index";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 export default function EditSeedTeam() {
   const [players, setPlayers] = useState([]);
 
   const navigate = useNavigate();
   const location = useLocation();
+  const { id: tournamentId } = useParams();   // ⭐ FIXED
 
-  // Page to return to after saving
   const from = location.state?.from || "/tournaments";
 
-  // Load seed players
+  // Load seed players for this tournament
   useEffect(() => {
     const load = async () => {
-      const res = await fetch(`${API_BASE}/api/seed/seed`);
+      const res = await fetch(`${API_BASE}/api/seed/${tournamentId}`);
       const data = await res.json();
-      setPlayers(data);
+      setPlayers(Array.isArray(data) ? data : []);   // ⭐ Prevent map() crash
     };
     load();
-  }, []);
+  }, [tournamentId]);
 
   // Update a field
   const updateField = (id, field, value) => {
@@ -28,9 +28,9 @@ export default function EditSeedTeam() {
     );
   };
 
-  // Save and redirect back
+  // Save changes
   const save = async () => {
-    await fetch(`${API_BASE}/api/seed/seed`, {
+    await fetch(`${API_BASE}/api/seed`, {   // ⭐ FIXED URL
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(players)
@@ -48,7 +48,8 @@ export default function EditSeedTeam() {
         {
           Id: nextId,
           Name: "New Player",
-          Notes: ""
+          Notes: "",
+          TournamentId: Number(tournamentId)   // ⭐ REQUIRED
         },
         ...prev
       ];
@@ -76,7 +77,6 @@ export default function EditSeedTeam() {
         {players.map(p => (
           <div key={p.Id} className="p-4 border rounded-lg bg-white">
 
-            {/* Name + Delete */}
             <div className="flex justify-between items-center mb-2">
               <input
                 className="w-full p-2 border rounded"
@@ -93,7 +93,6 @@ export default function EditSeedTeam() {
               </button>
             </div>
 
-            {/* Notes */}
             <textarea
               className="w-full p-2 border rounded"
               rows={2}
