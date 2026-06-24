@@ -25,7 +25,9 @@ export default function EditTournament() {
         parking: data.Location?.Parking || "",
         mapUrl: data.Location?.MapUrl || "",
         costPerPlayer: data.CostPerPlayer,
-        notes: data.Notes ?? ""
+        notes: data.Notes ?? "",
+        meetTime: data.meetTime ?? "",
+        kickOffTime: data.kickOffTime ?? ""
       });
 
     };
@@ -46,6 +48,8 @@ export default function EditTournament() {
     const body = {
       name: form.name,
       date: new Date(`${form.date}:00`).toISOString(),
+       meetTime: form.meetTime,
+  kickOffTime: form.kickOffTime,
       costPerPlayer: parseFloat(form.costPerPlayer),
       notes: form.notes,
       location: {
@@ -89,6 +93,21 @@ export default function EditTournament() {
           name="address"
           className="w-full p-2 border rounded"
           value={form.address}
+          onChange={handleChange}
+        />
+        <input
+          name="meetTime"
+          type="time"
+          className="w-full p-2 border rounded"
+          value={form.meetTime}
+          onChange={handleChange}
+        />
+
+        <input
+          name="kickOffTime"
+          type="time"
+          className="w-full p-2 border rounded"
+          value={form.kickOffTime}
           onChange={handleChange}
         />
 

@@ -13,7 +13,9 @@ export default function NewTournamentPage() {
     address: "",
     parking: "",
     costPerPlayer: 0,
-    notes: ""
+    notes: "",
+    meetTime: "",
+    kickOffTime: ""
   });
 
   const handleChange = (e) => {
@@ -28,6 +30,8 @@ export default function NewTournamentPage() {
     const body = {
       name: form.name,
       date: isoDate,
+      meetTime: form.meetTime,
+      kickOffTime: form.kickOffTime,
       costPerPlayer: parseFloat(form.costPerPlayer),
       notes: form.notes,
       location: {
@@ -83,7 +87,23 @@ export default function NewTournamentPage() {
           onChange={handleChange}
           required
         />
+        <input
+          name="meetTime"
+          type="time"
+          className="w-full p-2 border rounded"
+          value={form.meetTime}
+          onChange={handleChange}
+          required
+        />
 
+        <input
+          name="kickOffTime"
+          type="time"
+          className="w-full p-2 border rounded"
+          value={form.kickOffTime}
+          onChange={handleChange}
+          required
+        />
         <input
           name="parking"
           placeholder="Parking Info"

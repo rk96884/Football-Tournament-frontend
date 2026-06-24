@@ -6,6 +6,8 @@ import {
   MapPinIcon,
   MapIcon,
   PencilSquareIcon,
+  ClockIcon,
+  FlagIcon
 } from "@heroicons/react/24/solid";
 
 export default function TournamentPage() {
@@ -31,7 +33,6 @@ export default function TournamentPage() {
   if (!tournament) {
     return <div className="p-4">Loading tournament...</div>;
   }
-
 
   const savePlayer = async (player) => {
     setSavingPlayerId(player.Id);
@@ -131,6 +132,20 @@ export default function TournamentPage() {
     unanswered: "bg-amber-100 border-amber-400 text-amber-800",
   };
 
+  const formatTime = (timeString) => {
+    if (!timeString) return "—";
+
+    const [hour, minute] = timeString.split(":").map(Number);
+
+    const date = new Date();
+    date.setHours(hour, minute);
+
+    return date.toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit"
+    });
+  };
+
 
   return (
     <div className="p-6 space-y-6 bg-[#F2F2F7] min-h-screen">
@@ -174,6 +189,24 @@ export default function TournamentPage() {
                 <MapIcon className="h-4 w-4" />
                 Open in Maps
               </a>
+            </div>
+          </div>
+
+          {/* ⭐ Meet Time */}
+          <div className="flex items-start gap-3 mt-4">
+            <ClockIcon className="h-6 w-6 text-blue-600 flex-shrink-0" />
+            <div>
+              <p className="text-gray-800 font-medium">Meet Time</p>
+              <p className="text-gray-700">{formatTime(tournament.meetTime)}</p>
+            </div>
+          </div>
+
+          {/* ⭐ Kick-Off Time */}
+          <div className="flex items-start gap-3 mt-3">
+            <FlagIcon className="h-6 w-6 text-blue-600 flex-shrink-0" />
+            <div>
+              <p className="text-gray-800 font-medium">Kick-Off Time</p>
+              <p className="text-gray-700">{formatTime(tournament.kickOffTime)}</p>
             </div>
           </div>
 
