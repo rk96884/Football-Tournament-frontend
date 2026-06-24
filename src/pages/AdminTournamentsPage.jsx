@@ -12,10 +12,10 @@ export default function TournamentsPage() {
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-2">
           <Link
-            to={`/tournaments/${t.Id}/editseedteam`} state={{ from: location.pathname }}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition"
+            to="/tournaments/seed/edit"
+            className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
           >
-            Edit Team
+            Edit Master Seed Team
           </Link>
           <Link
             to="/tournaments/add"

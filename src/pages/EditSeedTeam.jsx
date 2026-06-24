@@ -7,16 +7,19 @@ export default function EditSeedTeam() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { id: tournamentId } = useParams();   // ⭐ FIXED
+  const { id } = useParams();
+
+  // ⭐ If no :id → master list (TournamentId = 0)
+  const tournamentId = id ? Number(id) : 0;
 
   const from = location.state?.from || "/tournaments";
 
-  // Load seed players for this tournament
+  // Load seed players (master or tournament)
   useEffect(() => {
     const load = async () => {
       const res = await fetch(`${API_BASE}/api/seed/${tournamentId}`);
       const data = await res.json();
-      setPlayers(Array.isArray(data) ? data : []);   // ⭐ Prevent map() crash
+      setPlayers(Array.isArray(data) ? data : []);
     };
     load();
   }, [tournamentId]);
@@ -30,7 +33,7 @@ export default function EditSeedTeam() {
 
   // Save changes
   const save = async () => {
-    await fetch(`${API_BASE}/api/seed`, {   // ⭐ FIXED URL
+    await fetch(`${API_BASE}/api/seed`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(players)
@@ -49,7 +52,10 @@ export default function EditSeedTeam() {
           Id: nextId,
           Name: "",
           Notes: "",
-          TournamentId: Number(tournamentId)   // ⭐ REQUIRED
+          AmountOwed: 0,
+          AmountPaid: 0,
+          Paid: false,
+          TournamentId: tournamentId   // ⭐ Works for master (0) or tournament
         },
         ...prev
       ];
@@ -63,7 +69,9 @@ export default function EditSeedTeam() {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Edit Seed Team</h2>
+      <h2 className="text-2xl font-bold mb-4">
+        {tournamentId === 0 ? "Edit Master Seed Team" : "Edit Seed Team"}
+      </h2>
 
       <button
         type="button"
@@ -80,7 +88,7 @@ export default function EditSeedTeam() {
             <div className="flex justify-between items-center mb-2">
               <input
                 className="w-full p-2 border rounded"
-                placeholder="New Player Name"
+                placeholder="Player name"
                 value={p.Name}
                 onChange={e => updateField(p.Id, "Name", e.target.value)}
               />

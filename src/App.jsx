@@ -29,12 +29,20 @@ function App() {
           <main className="max-w-3xl mx-auto p-4">
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/tournaments/:id/editseedteam" element={<EditSeedTeam />} />
+
               <Route path="/tournaments" element={<AdminTournamentsPage />} />
               <Route path="/tournaments/add" element={<AddTournament />} />
-              <Route path="/tournaments/:id/edit" element={<EditTournament />} />
+
+              {/* ⭐ Tournament-specific pages */}
               <Route path="/tournaments/:id" element={<TournamentPage />} />
+              <Route path="/tournaments/:id/edit" element={<EditTournament />} />
               <Route path="/tournaments/:id/add-player" element={<AddPlayerPage />} />
+
+              {/* ⭐ NEW: Per‑tournament seed team */}
+              <Route path="/tournaments/:id/editseedteam" element={<EditSeedTeam />} />
+
+              {/* ⭐ NEW: Master seed team */}
+              <Route path="/tournaments/seed/edit" element={<EditSeedTeam />} />
             </Routes>
           </main>
         </div>

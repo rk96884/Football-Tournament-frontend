@@ -25,23 +25,37 @@ export default function TournamentList() {
 
       <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-200">
         {tournaments.map((t) => (
-          <Link
-            key={t.Id}
-            to={`/tournaments/${t.Id}`}
-            className="block p-4 hover:bg-gray-50 transition"
-          >
-            <div className="text-lg font-medium text-gray-900">{t.Name}</div>
+          <div key={t.Id} className="p-4 hover:bg-gray-50 transition">
 
-            {t.Location && (
-              <div className="text-sm text-gray-600">
-                📍 {t.Location.Address}
+            {/* Main clickable area */}
+            <Link
+              to={`/tournaments/${t.Id}`}
+              className="block"
+            >
+              <div className="text-lg font-medium text-gray-900">{t.Name}</div>
+
+              {t.Location && (
+                <div className="text-sm text-gray-600">
+                  📍 {t.Location.Address}
+                </div>
+              )}
+
+              <div className="text-sm text-gray-500 mt-1">
+                {t.Players?.length || 0} players
               </div>
-            )}
+            </Link>
 
-            <div className="text-sm text-gray-500 mt-1">
-              {t.Players?.length || 0} players
+            {/* Edit Seed Team button */}
+            <div className="mt-3">
+              <Link
+                to={`/tournaments/${t.Id}/editseedteam`}
+                className="inline-block text-blue-600 hover:underline text-sm font-medium"
+              >
+                Edit Seed Team
+              </Link>
             </div>
-          </Link>
+
+          </div>
         ))}
       </div>
     </div>
