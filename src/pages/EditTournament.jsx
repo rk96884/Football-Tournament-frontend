@@ -48,8 +48,8 @@ export default function EditTournament() {
     const body = {
       name: form.name,
       date: new Date(`${form.date}:00`).toISOString(),
-       meetTime: form.meetTime,
-  kickOffTime: form.kickOffTime,
+      meetTime: form.meetTime,
+      kickOffTime: form.kickOffTime,
       costPerPlayer: parseFloat(form.costPerPlayer),
       notes: form.notes,
       location: {
@@ -95,21 +95,38 @@ export default function EditTournament() {
           value={form.address}
           onChange={handleChange}
         />
-        <input
-          name="meetTime"
-          type="time"
-          className="w-full p-2 border rounded"
-          value={form.meetTime}
-          onChange={handleChange}
-        />
+        <div className="relative">
+          <input
+            type="time"
+            name="meetTime"
+            value={form.meetTime}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+            required
+          />
 
-        <input
-          name="kickOffTime"
-          type="time"
-          className="w-full p-2 border rounded"
-          value={form.kickOffTime}
-          onChange={handleChange}
-        />
+          {!form.meetTime && (
+            <span className="absolute left-3 top-2 text-gray-400 pointer-events-none">
+              Meet Time
+            </span>
+          )}
+        </div>
+        <div className="relative">
+          <input
+            type="time"
+            name="kickOffTime"
+            value={form.kickOffTime}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+            required
+          />
+
+          {!form.kickOffTime && (
+            <span className="absolute left-3 top-2 text-gray-400 pointer-events-none">
+              Kick-Off Time
+            </span>
+          )}
+        </div>
 
         <input
           name="parking"

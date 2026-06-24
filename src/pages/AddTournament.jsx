@@ -87,23 +87,40 @@ export default function NewTournamentPage() {
           onChange={handleChange}
           required
         />
-        <input
-          name="meetTime"
-          type="time"
-          className="w-full p-2 border rounded"
-          value={form.meetTime}
-          onChange={handleChange}
-          required
-        />
+        <div className="relative">
+          <input
+            type="time"
+            name="meetTime"
+            value={form.meetTime}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+            required
+          />
 
-        <input
-          name="kickOffTime"
-          type="time"
-          className="w-full p-2 border rounded"
-          value={form.kickOffTime}
-          onChange={handleChange}
-          required
-        />
+          {!form.meetTime && (
+            <span className="absolute left-3 top-2 text-gray-400 pointer-events-none">
+              Meet Time
+            </span>
+          )}
+        </div>
+
+        <div className="relative">
+          <input
+            type="time"
+            name="kickOffTime"
+            value={form.kickOffTime}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+            required
+          />
+
+          {!form.kickOffTime && (
+            <span className="absolute left-3 top-2 text-gray-400 pointer-events-none">
+              Kick-Off Time
+            </span>
+          )}
+        </div>
+
         <input
           name="parking"
           placeholder="Parking Info"
