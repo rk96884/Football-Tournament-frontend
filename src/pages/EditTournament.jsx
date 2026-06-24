@@ -105,7 +105,7 @@ export default function EditTournament() {
             required
           />
 
-          {!form.meetTime && (
+          {(form.meetTime === "" || form.meetTime === null) && (
             <span className="absolute left-3 top-2 text-gray-400 pointer-events-none">
               Meet Time
             </span>
@@ -121,7 +121,7 @@ export default function EditTournament() {
             required
           />
 
-          {!form.kickOffTime && (
+          {(form.kickOffTime === "" || form.kickOffTime === null) && (
             <span className="absolute left-3 top-2 text-gray-400 pointer-events-none">
               Kick-Off Time
             </span>
