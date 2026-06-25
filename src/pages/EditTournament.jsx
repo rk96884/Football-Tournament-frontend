@@ -26,8 +26,8 @@ export default function EditTournament() {
         mapUrl: data.Location?.MapUrl || "",
         costPerPlayer: data.CostPerPlayer,
         notes: data.Notes ?? "",
-        meetTime: data.meetTime ?? "",
-        kickOffTime: data.kickOffTime ?? ""
+        meetTime: data.MeetTime ?? "",
+        kickOffTime: data.KickOffTime ?? ""
       });
 
     };
@@ -100,6 +100,7 @@ export default function EditTournament() {
             type="time"
             name="meetTime"
             value={form.meetTime}
+            placeholder=" "
             onChange={handleChange}
             className="w-full p-2 border rounded"
             required
@@ -115,6 +116,7 @@ export default function EditTournament() {
           <input
             type="time"
             name="kickOffTime"
+            placeholder=" "
             value={form.kickOffTime}
             onChange={handleChange}
             className="w-full p-2 border rounded"

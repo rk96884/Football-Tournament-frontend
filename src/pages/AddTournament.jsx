@@ -91,6 +91,7 @@ export default function NewTournamentPage() {
           <input
             type="time"
             name="meetTime"
+            placeholder=" "
             value={form.meetTime}
             onChange={handleChange}
             className="w-full p-2 border rounded"
@@ -108,6 +109,7 @@ export default function NewTournamentPage() {
           <input
             type="time"
             name="kickOffTime"
+            placeholder=" "
             value={form.kickOffTime}
             onChange={handleChange}
             className="w-full p-2 border rounded"
