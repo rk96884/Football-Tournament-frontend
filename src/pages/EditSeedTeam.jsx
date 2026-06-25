@@ -9,20 +9,30 @@ export default function EditSeedTeam() {
   const location = useLocation();
   const { id } = useParams();
 
-  // ⭐ If no :id → master list (TournamentId = 0)
-  const tournamentId = id ? Number(id) : 0;
+  // ⭐ If no :id → master seed team (TournamentId = 0)
+  const isMaster = !id;
+  const tournamentId = isMaster ? 0 : Number(id);
 
   const from = location.state?.from || "/tournaments";
 
-  // Load seed players (master or tournament)
+  // ⭐ Load players (master OR tournament)
   useEffect(() => {
     const load = async () => {
-      const res = await fetch(`${API_BASE}/api/seed/${tournamentId}`);
-      const data = await res.json();
-      setPlayers(Array.isArray(data) ? data : []);
+      if (isMaster) {
+        // ⭐ Load master seed team
+        const res = await fetch(`${API_BASE}/api/seed/0`);
+        const data = await res.json();
+        setPlayers(Array.isArray(data) ? data : []);
+      } else {
+        // ⭐ Load actual tournament players
+        const res = await fetch(`${API_BASE}/api/tournaments/${tournamentId}`);
+        const data = await res.json();
+        setPlayers(data.Players || []);
+      }
     };
+
     load();
-  }, [tournamentId]);
+  }, [isMaster, tournamentId]);
 
   // ⭐ Update a field (supports Id OR TempId)
   const updateField = (idOrTempId, field, value) => {
@@ -35,9 +45,13 @@ export default function EditSeedTeam() {
     );
   };
 
-  // ⭐ Save changes (PUT to /seed/{tournamentId})
+  // ⭐ Save changes (different endpoints for master vs tournament)
   const save = async () => {
-    const res = await fetch(`${API_BASE}/api/seed/${tournamentId}`, {
+    const url = isMaster
+      ? `${API_BASE}/api/seed/0`
+      : `${API_BASE}/api/players/bulkupdate/${tournamentId}`;
+
+    const res = await fetch(url, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(players)
@@ -58,9 +72,6 @@ export default function EditSeedTeam() {
         TempId: crypto.randomUUID(),
         Name: "",
         Notes: "",
-        AmountOwed: 0,
-        AmountPaid: 0,
-        Paid: false,
         TournamentId: tournamentId
       },
       ...prev
@@ -77,7 +88,7 @@ export default function EditSeedTeam() {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">
-        {tournamentId === 0 ? "Edit Master Seed Team" : "Edit Seed Team"}
+        {isMaster ? "Edit Master Seed Team" : "Edit Seed Team"}
       </h2>
 
       <button
@@ -114,6 +125,7 @@ export default function EditSeedTeam() {
             <textarea
               className="w-full p-2 border rounded"
               rows={2}
+              placeholder="Notes (optional)"
               value={p.Notes || ""}
               onChange={e => updateField(p.Id || p.TempId, "Notes", e.target.value)}
             />
