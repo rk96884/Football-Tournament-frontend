@@ -60,7 +60,12 @@ export default function EditSeedTeam() {
     if (res.ok) {
       const updatedList = await res.json();
       setPlayers(updatedList);
-      navigate(from);
+
+      if (isMaster) {
+        navigate(from);
+      } else {
+        navigate(`/tournaments/${tournamentId}`);
+      }
     }
   };
 
