@@ -6,7 +6,7 @@ export default function TournamentsPage() {
   const { tournaments } = useTournaments();
 
   // ⭐ Filter out the master tournament safely
-  const filtered = tournaments.filter(t => t.id !== 0);
+const filtered = tournaments.filter(t => t.name !== "Master Seed Team");
 
   return (
     <div>
