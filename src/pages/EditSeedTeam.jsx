@@ -92,6 +92,7 @@ export default function EditSeedTeam() {
         {players.map(p => (
           <div key={p.Id || p.TempId} className="p-4 border rounded-lg bg-white">
 
+            {/* Name + Delete */}
             <div className="flex justify-between items-center mb-2">
               <input
                 className="w-full p-2 border rounded"
@@ -109,12 +110,42 @@ export default function EditSeedTeam() {
               </button>
             </div>
 
+            {/* Notes */}
             <textarea
               className="w-full p-2 border rounded"
               rows={2}
               value={p.Notes || ""}
               onChange={e => updateField(p.Id || p.TempId, "Notes", e.target.value)}
             />
+
+            {/* Amount Owed */}
+            <input
+              type="number"
+              className="w-full p-2 border rounded mt-2"
+              value={p.AmountOwed}
+              onChange={e => updateField(p.Id || p.TempId, "AmountOwed", Number(e.target.value))}
+              placeholder="Amount Owed"
+            />
+
+            {/* Amount Paid */}
+            <input
+              type="number"
+              className="w-full p-2 border rounded mt-2"
+              value={p.AmountPaid}
+              onChange={e => updateField(p.Id || p.TempId, "AmountPaid", Number(e.target.value))}
+              placeholder="Amount Paid"
+            />
+
+            {/* Paid checkbox */}
+            <label className="flex items-center gap-2 mt-2">
+              <input
+                type="checkbox"
+                checked={p.Paid}
+                onChange={e => updateField(p.Id || p.TempId, "Paid", e.target.checked)}
+              />
+              <span>Paid</span>
+            </label>
+
           </div>
         ))}
       </div>
