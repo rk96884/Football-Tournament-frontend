@@ -31,35 +31,35 @@ export default function EditSeedTeam() {
     );
   };
 
-  // Save changes
+  // ⭐ Save changes (now receives updated list with REAL IDs)
   const save = async () => {
-    await fetch(`${API_BASE}/api/seed`, {
+    const res = await fetch(`${API_BASE}/api/seed`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(players)
     });
 
-    navigate(from);
+    if (res.ok) {
+      const updatedList = await res.json();   // ⭐ REAL IDs from DB
+      setPlayers(updatedList);                // ⭐ Sync state
+      navigate(from);
+    }
   };
 
   // Add new player
   const addPlayer = () => {
-    setPlayers(prev => {
-      const nextId = prev.length ? Math.max(...prev.map(p => p.Id)) + 1 : 1;
-
-      return [
-        {
-          Id: nextId,
-          Name: "",
-          Notes: "",
-          AmountOwed: 0,
-          AmountPaid: 0,
-          Paid: false,
-          TournamentId: tournamentId   // ⭐ Works for master (0) or tournament
-        },
-        ...prev
-      ];
-    });
+    setPlayers(prev => [
+      {
+        Id: 0,                     // ⭐ 0 means "new" — backend will assign real ID
+        Name: "",
+        Notes: "",
+        AmountOwed: 0,
+        AmountPaid: 0,
+        Paid: false,
+        TournamentId: tournamentId
+      },
+      ...prev
+    ]);
   };
 
   // Delete player
@@ -83,7 +83,7 @@ export default function EditSeedTeam() {
 
       <div className="space-y-4">
         {players.map(p => (
-          <div key={p.Id} className="p-4 border rounded-lg bg-white">
+          <div key={p.Id || Math.random()} className="p-4 border rounded-lg bg-white">
 
             <div className="flex justify-between items-center mb-2">
               <input
