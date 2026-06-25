@@ -57,17 +57,27 @@ export default function EditSeedTeam() {
       body: JSON.stringify(players)
     });
 
-    if (res.ok) {
-      const updatedList = await res.json();
-      setPlayers(updatedList);
+    if (!res.ok) {
+      console.error("Save failed");
+      return;
+    }
 
-      if (isMaster) {
-        navigate(from);
-      } else {
-        navigate(`/tournaments/${tournamentId}`);
-      }
+    // Some endpoints return updated list, some return nothing.
+    // We don't rely on the response anymore.
+    try {
+      await res.json();
+    } catch {
+      // ignore JSON parse errors
+    }
+
+    // ⭐ Guaranteed redirect
+    if (isMaster) {
+      navigate("/tournaments");
+    } else {
+      navigate(`/tournaments/${tournamentId}`);
     }
   };
+
 
   // ⭐ Add new player (TempId ensures stable key)
   const addPlayer = () => {

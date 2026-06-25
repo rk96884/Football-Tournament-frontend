@@ -46,3 +46,22 @@
 .google-maps-button:hover {
   background: #3367D6;
 }
+
+/* Remove Chrome/Safari default --:-- placeholder */
+input[type="time"]::-webkit-datetime-edit-fields-wrapper {
+  display: none;
+}
+
+input[type="time"]::-webkit-datetime-edit-text {
+  display: none;
+}
+
+input[type="time"]::-webkit-datetime-edit-hour-field,
+input[type="time"]::-webkit-datetime-edit-minute-field {
+  display: none;
+}
+
+/* Keep the clock icon visible */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+}
