@@ -33,6 +33,14 @@ export default function TournamentPage() {
   if (!tournament) {
     return <div className="p-4">Loading tournament...</div>;
   }
+  // ⭐ Hide the Master Seed Team tournament
+  if (tournament.name === "Master Seed Team") {
+    return (
+      <div className="p-4 text-red-600 font-semibold">
+        This is the master seed template and cannot be viewed as a tournament.
+      </div>
+    );
+  }
 
   const savePlayer = async (player) => {
     setSavingPlayerId(player.Id);

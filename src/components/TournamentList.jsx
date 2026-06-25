@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_BASE } from "../api";
 
-export default function TournamentList() {
-  const [tournaments, setTournaments] = useState([]);
+export default function TournamentList({ tournaments: incoming }) {
+  const [tournaments, setTournaments] = useState(incoming || []);
 
   const loadTournaments = async () => {
     try {
@@ -16,22 +16,26 @@ export default function TournamentList() {
   };
 
   useEffect(() => {
+    // ⭐ If parent passed tournaments, do NOT fetch
+    if (incoming && incoming.length > 0) return;
+
     loadTournaments();
-  }, []);
+  }, [incoming]);
+
+  // ⭐ Final safety filter: never show Master Seed Team
+  const filtered = tournaments.filter(
+    (t) => t.Name !== "Master Seed Team"
+  );
 
   return (
     <div className="p-6 space-y-6 bg-[#F2F2F7] min-h-screen">
       <h2 className="text-3xl font-semibold text-gray-900">Tournaments</h2>
 
       <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-200">
-        {tournaments.map((t) => (
+        {filtered.map((t) => (
           <div key={t.Id} className="p-4 hover:bg-gray-50 transition">
 
-            {/* Main clickable area */}
-            <Link
-              to={`/tournaments/${t.Id}`}
-              className="block"
-            >
+            <Link to={`/tournaments/${t.Id}`} className="block">
               <div className="text-lg font-medium text-gray-900">{t.Name}</div>
 
               {t.Location && (
@@ -45,7 +49,6 @@ export default function TournamentList() {
               </div>
             </Link>
 
-            {/* Edit Seed Team button */}
             <div className="mt-3">
               <Link
                 to={`/tournaments/${t.Id}/editseedteam`}
