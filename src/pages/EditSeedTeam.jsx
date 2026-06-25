@@ -6,7 +6,6 @@ export default function EditSeedTeam() {
   const [players, setPlayers] = useState([]);
 
   const navigate = useNavigate();
-  const location = useLocation();
   const { id } = useParams();
 
   // ⭐ If no :id → master seed team (TournamentId = 0)
