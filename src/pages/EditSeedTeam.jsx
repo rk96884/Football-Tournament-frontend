@@ -24,14 +24,18 @@ export default function EditSeedTeam() {
     load();
   }, [tournamentId]);
 
-  // Update a field
-  const updateField = (id, field, value) => {
+  // ⭐ Update a field (supports Id OR TempId)
+  const updateField = (idOrTempId, field, value) => {
     setPlayers(prev =>
-      prev.map(p => (p.Id === id ? { ...p, [field]: value } : p))
+      prev.map(p =>
+        (p.Id === idOrTempId || p.TempId === idOrTempId)
+          ? { ...p, [field]: value }
+          : p
+      )
     );
   };
 
-  // ⭐ Save changes (now receives updated list with REAL IDs)
+  // ⭐ Save changes (receives updated list with REAL DB IDs)
   const save = async () => {
     const res = await fetch(`${API_BASE}/api/seed`, {
       method: "PUT",
@@ -46,11 +50,12 @@ export default function EditSeedTeam() {
     }
   };
 
-  // Add new player
+  // ⭐ Add new player (TempId ensures stable key)
   const addPlayer = () => {
     setPlayers(prev => [
       {
-        Id: 0,                     // ⭐ 0 means "new" — backend will assign real ID
+        Id: 0, // new player → backend assigns real ID
+        TempId: crypto.randomUUID(), // ⭐ stable key
         Name: "",
         Notes: "",
         AmountOwed: 0,
@@ -62,9 +67,11 @@ export default function EditSeedTeam() {
     ]);
   };
 
-  // Delete player
-  const deletePlayer = (id) => {
-    setPlayers(prev => prev.filter(p => p.Id !== id));
+  // ⭐ Delete player (supports Id OR TempId)
+  const deletePlayer = (idOrTempId) => {
+    setPlayers(prev =>
+      prev.filter(p => p.Id !== idOrTempId && p.TempId !== idOrTempId)
+    );
   };
 
   return (
@@ -83,19 +90,19 @@ export default function EditSeedTeam() {
 
       <div className="space-y-4">
         {players.map(p => (
-          <div key={p.Id || Math.random()} className="p-4 border rounded-lg bg-white">
+          <div key={p.Id || p.TempId} className="p-4 border rounded-lg bg-white">
 
             <div className="flex justify-between items-center mb-2">
               <input
                 className="w-full p-2 border rounded"
                 placeholder="Player name"
                 value={p.Name}
-                onChange={e => updateField(p.Id, "Name", e.target.value)}
+                onChange={e => updateField(p.Id || p.TempId, "Name", e.target.value)}
               />
 
               <button
                 type="button"
-                onClick={() => deletePlayer(p.Id)}
+                onClick={() => deletePlayer(p.Id || p.TempId)}
                 className="ml-4 text-red-600 hover:underline"
               >
                 Delete
@@ -106,7 +113,7 @@ export default function EditSeedTeam() {
               className="w-full p-2 border rounded"
               rows={2}
               value={p.Notes || ""}
-              onChange={e => updateField(p.Id, "Notes", e.target.value)}
+              onChange={e => updateField(p.Id || p.TempId, "Notes", e.target.value)}
             />
           </div>
         ))}
