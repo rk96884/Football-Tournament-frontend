@@ -35,17 +35,17 @@ export default function EditSeedTeam() {
     );
   };
 
-  // ⭐ Save changes (receives updated list with REAL DB IDs)
+  // ⭐ Save changes (PUT to /seed/{tournamentId})
   const save = async () => {
-    const res = await fetch(`${API_BASE}/api/seed`, {
+    const res = await fetch(`${API_BASE}/api/seed/${tournamentId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(players)
     });
 
     if (res.ok) {
-      const updatedList = await res.json();   // ⭐ REAL IDs from DB
-      setPlayers(updatedList);                // ⭐ Sync state
+      const updatedList = await res.json();
+      setPlayers(updatedList);
       navigate(from);
     }
   };
@@ -54,8 +54,8 @@ export default function EditSeedTeam() {
   const addPlayer = () => {
     setPlayers(prev => [
       {
-        Id: 0, // new player → backend assigns real ID
-        TempId: crypto.randomUUID(), // ⭐ stable key
+        Id: 0,
+        TempId: crypto.randomUUID(),
         Name: "",
         Notes: "",
         AmountOwed: 0,
