@@ -13,7 +13,6 @@ export default function EditSeedTeam() {
   const isMaster = !id;
   const tournamentId = isMaster ? 0 : Number(id);
 
-  const from = location.state?.from || "/tournaments";
 
   // ⭐ Load players (master OR tournament)
   useEffect(() => {
