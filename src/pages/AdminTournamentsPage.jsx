@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 export default function TournamentsPage() {
   const { tournaments } = useTournaments();
 
+  // ⭐ Filter out the master tournament safely
+  const filtered = tournaments.filter(t => t.Id !== 0);
+
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
@@ -15,17 +18,18 @@ export default function TournamentsPage() {
           >
             Edit Master Seed Team
           </Link>
+
           <Link
             to="/tournaments/add"
             className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
           >
             + Add Tournament
           </Link>
-
         </div>
       </div>
 
-      <TournamentList tournaments={tournaments} />
+      {/* ⭐ Use filtered list */}
+      <TournamentList tournaments={filtered} />
     </div>
   );
 }
