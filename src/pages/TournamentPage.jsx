@@ -197,7 +197,7 @@ export default function TournamentPage() {
             <ClockIcon className="h-6 w-6 text-blue-600 flex-shrink-0" />
             <div>
               <p className="text-gray-800 font-medium">Meet Time</p>
-              <p className="text-gray-700">{formatTime(tournament.meetTime)}</p>
+              <p className="text-gray-700">{formatTime(tournament.MeetTime)}</p>
             </div>
           </div>
 
@@ -206,7 +206,7 @@ export default function TournamentPage() {
             <FlagIcon className="h-6 w-6 text-blue-600 flex-shrink-0" />
             <div>
               <p className="text-gray-800 font-medium">Kick-Off Time</p>
-              <p className="text-gray-700">{formatTime(tournament.kickOffTime)}</p>
+              <p className="text-gray-700">{formatTime(tournament.KickOffTime)}</p>
             </div>
           </div>
 
