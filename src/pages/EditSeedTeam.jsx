@@ -101,7 +101,7 @@ export default function EditSeedTeam() {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">
-        {isMaster ? "Edit Master Seed Team" : "Edit Seed Team"}
+        {isMaster ? "Edit Master Team" : "Edit Team"}
       </h2>
 
       <button

@@ -16,7 +16,7 @@ const filtered = tournaments.filter(t => t.name !== "Master Seed Team");
             to="/tournaments/seed/edit"
             className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
           >
-            Edit Master Seed Team
+            Edit Master Team
           </Link>
 
           <Link
